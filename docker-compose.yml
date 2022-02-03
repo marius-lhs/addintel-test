@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+  laravel:
+    container_name: addintel-test
+    restart: on-failure
+    build:
+      context: .
+      dockerfile: laravel.dockerfile
+    volumes:
+      - ./addintel-test:/var/www
+    links:
+      - db
+    depends_on:
+      - db
+    networks:
+      - backend
+
+  db:
+    container_name: addintel-test-db
+    image: mysql/mysql-server:5.7.22
+    command: mysqld --performance_schema=on --show_compatibility_56=on
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${DB_DATABASE}
+      - MYSQL_USER=${DB_USERNAME}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - test-data:/var/lib/mysql
+    ports:
+      - "3316:${DB_PORT}"
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  test-data: {}

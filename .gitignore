@@ -1,0 +1,9 @@
+.env
+.env.backup
+storage/*.key
+.idea
+vendor
+clover.xml
+coverage.xml
+test-coverage/
+.phpunit.result.cache
