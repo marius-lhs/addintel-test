@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class FridgeContent
@@ -19,12 +19,18 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class FridgeContent extends Model
 {
-    protected $table = 'luigis_fridge_contents';
-    public $timestamps = true;
-    protected $fillable = ['ingredient_id', 'amount'];
+    protected $table    = 'luigis_fridge_contents';
+    public $timestamps  = true;
+    protected $fillable = [
+        'ingredient_id',
+        'amount'
+    ];
 
-    public function ingredient(): BelongsTo
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function ingredient(): HasMany
     {
-        return $this->belongsTo(Ingredient::class);
+        return $this->hasMany(Ingredient::class);
     }
 }

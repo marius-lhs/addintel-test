@@ -23,13 +23,44 @@ use Illuminate\Support\Collection;
  */
 class Recipe extends Model
 {
-    const MARGHERITA_ID = 1;
-    const HAWAIIAN_ID = 2;
+    public const MARGHERITA_ID = 1;
+    public const HAWAIIAN_ID   = 2;
 
-    protected $table = 'luigis_recipes';
-    public $timestamps = false;
+    protected $table    = 'luigis_recipes';
     protected $fillable = ['id', 'name', 'price'];
+    public $timestamps  = false;
 
+    /**
+     * @return array[]
+     */
+    public static function getMainRecipes(): array
+    {
+        return [
+            [
+                'id'          => self::MARGHERITA_ID,
+                'name'        => 'margherita',
+                'ingredients' => [
+                    Ingredient::TOMATO_ID,
+                    Ingredient::MOZZARELLA_ID,
+                ],
+                'price'       => 6.99,
+            ],
+            [
+                'id'          => self::HAWAIIAN_ID,
+                'name'        => 'hawaiian',
+                'ingredients' => [
+                    Ingredient::TOMATO_ID,
+                    Ingredient::PINEAPPLE_ID,
+                    Ingredient::HAM_ID,
+                ],
+                'price'       => 8.99,
+            ],
+        ];
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
     public function ingredients(): HasManyThrough
     {
         return $this->hasManyThrough(
@@ -42,11 +73,17 @@ class Recipe extends Model
         );
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function ingredientRequirements(): HasMany
     {
         return $this->hasMany(RecipeIngredient::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
     public function orders(): HasManyThrough
     {
         return $this->hasManyThrough(

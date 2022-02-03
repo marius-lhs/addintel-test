@@ -4,9 +4,9 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
-use IngredientTableSeeder;
-use RecipeIngredientTableSeeder;
-use RecipeTableSeeder;
+use Database\Seeders\IngredientTableSeeder;
+use Database\Seeders\RecipeIngredientTableSeeder;
+use Database\Seeders\RecipeTableSeeder;
 
 class DatabaseSeeder extends Seeder
 {

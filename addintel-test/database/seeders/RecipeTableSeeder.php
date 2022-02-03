@@ -1,27 +1,27 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 use App\Models\Recipe;
 
 class RecipeTableSeeder extends Seeder
 {
-
     public function run()
     {
-        Recipe::updateOrCreate(
-            ['id' => Recipe::MARGHERITA_ID],
-            [
-                'name'  => 'Margherita',
-                'price' => 6.99
-            ]
-        );
+        foreach (Recipe::getMainRecipes() as $recipe) {
+            foreach ($recipe['ingredients'] as $ingredient) {
+                Recipe::updateOrCreate(
+                    [
+                        'id'    => $recipe['id'],
+                        'name'  => $recipe['name']
+                    ],
+                    [
+                        'price' => $recipe['price'],
+                    ]
+                );
 
-        Recipe::updateOrCreate(
-            ['id' => Recipe::HAWAIIAN_ID],
-            [
-                'name'  => 'Hawaiian',
-                'price' => 8.99
-            ]
-        );
+            }
+        }
     }
 }

@@ -2,12 +2,15 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateOrderRecipesTable extends Migration {
+class CreateOrderRecipesTable extends Migration
+{
+    private string $tableName = 'luigis_order_recipes';
 
 	public function up()
 	{
-		Schema::create('luigis_order_recipes', function(Blueprint $table) {
+		Schema::create($this->tableName, function(Blueprint $table) {
 			$table->increments('id');
 			$table->integer('order_id')->unsigned();
 			$table->integer('recipe_id')->unsigned();
@@ -16,6 +19,6 @@ class CreateOrderRecipesTable extends Migration {
 
 	public function down()
 	{
-		Schema::drop('luigis_order_recipes');
+		Schema::drop($this->tableName);
 	}
 }
