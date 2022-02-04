@@ -2,12 +2,12 @@
 
 namespace App\Utilities;
 
-use http\Exception\RuntimeException;
-
 class ElectricOven implements Oven
 {
-    private bool $powerOn = false;
-    private int $bakeTime = 3;
+    private bool $powerOn    = false;
+    private bool $isHeated   = false;
+    private int $preheatTime = 10;
+    private int $bakeTime    = 5;
 
     /**
      * @return \App\Utilities\Oven
@@ -15,6 +15,11 @@ class ElectricOven implements Oven
     public function heatUp(): Oven
     {
         $this->powerOn = true;
+
+        echo "Preheating will take {$this->preheatTime} minutes...";
+        sleep($this->preheatTime);
+
+        $this->isHeated = true;
 
         return $this;
     }
@@ -26,11 +31,12 @@ class ElectricOven implements Oven
      */
     public function bake(Pizza &$pizza): Oven
     {
-        if (!$this->powerOn) {
-            throw new RuntimeException('You must first turn the oven on.');
+        if (!$this->powerOn || !$this->isHeated) {
+            echo 'Let me first turn the oven up...';
+            $this->heatUp();
         }
 
-        echo "This will take {$this->bakeTime} seconds...";
+        echo "Baking will take {$this->bakeTime} minutes...";
         sleep($this->bakeTime);
 
         return $pizza;
