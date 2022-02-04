@@ -66,6 +66,6 @@ class Fridge
     // TODO: create this function
     public function has(Ingredient $ingredient, int $amount): bool
     {
-
+        return ($amount <= $this->stock[get_class($ingredient)]);
     }
 }

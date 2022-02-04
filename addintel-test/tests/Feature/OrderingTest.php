@@ -8,11 +8,14 @@ use App\Models\Recipe;
 use App\Utilities\Luigis;
 use App\Utilities\Pizza;
 use BadFunctionCallException;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class OrderingTest extends TestCase
 {
+    use DatabaseMigrations;
+
     /** @var Luigis */
     private $luigis;
 

@@ -10,14 +10,15 @@ use Illuminate\Support\Collection;
 class Luigis
 {
     /** @var Fridge */
-    private $fridge;
+    private Fridge $fridge;
+
     /** @var Oven */
-    private $oven;
+    private Oven $oven;
 
     public function __construct(Oven $oven = null)
     {
         $this->fridge = new Fridge();
-        $this->oven = $oven ? $oven : new ElectricOven();
+        $this->oven = $oven ?? new ElectricOven();
     }
 
     public function restockFridge(): void
